@@ -1,0 +1,48 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        int res=0;
+        unordered_map<char,int> m;
+        m['I'] = 1;
+        m['V'] = 5;
+        m['X'] = 10;
+        m['L'] = 50;
+        m['C'] = 100;
+        m['D'] = 500;
+        m['M'] = 1000;
+        int i;
+        for(i=0;i<s.size()-1;){
+            if(s[i]=='I'){
+                if(s[i+1]!='V'&&s[i+1]!='X'){
+                    res+=m['I'];
+                    i++;
+                }else{
+                    res+=(m[s[i+1]]-m['I']);
+                    i=i+2;
+                }
+            }else if(s[i]=='X'){
+                if(s[i+1]!='L'&&s[i+1]!='C'){
+                    res+=m['X'];
+                    i++;
+                }else{
+                    res+=(m[s[i+1]]-m['X']);
+                    i=i+2;
+                }
+            }else if(s[i]=='C'){
+                if(s[i+1]!='D'&&s[i+1]!='M'){
+                    res+=m['C'];
+                    i++;
+                }else{
+                    res+=(m[s[i+1]]-m['C']);
+                    i=i+2;
+                }
+            }else{
+                res+=m[s[i]];
+                i++;
+            }
+        }
+        if(i==s.size()-1)
+            res+=m[s[s.size()-1]];
+        return res;
+    }
+};
